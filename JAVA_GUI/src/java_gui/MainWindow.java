@@ -18,11 +18,8 @@ public class MainWindow extends javax.swing.JFrame {
     /**
      * Creates new form MainWindow
      */
-    // Create Two intances of the client.
-    // One maintains communication with server.
-    // The other changes the flags.
-    Client toPythonServer = new Client();
-    Client flagChanger = new Client();
+
+    Client toPython = new Client();
 
     // Path to Server Killer
     String pythonServerKiller = "python \"C:\\chalmers_thesis\\py_node sockets\\killer.py\" ";
@@ -62,6 +59,15 @@ public class MainWindow extends javax.swing.JFrame {
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+    
+    public void sleep(int seconds)
+    {
+        try {
+            Thread.sleep(seconds);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -259,6 +265,12 @@ public class MainWindow extends javax.swing.JFrame {
 
         // Launch the servers
         launchPythonServers();
+        
+        // Wait a little
+        sleep(1000);
+        
+        // Now connect the client to server
+        toPython.connectToServer();
 
         // Set the Gesture DropDown Menu Visible
         jPanel4.setVisible(true);
@@ -276,6 +288,9 @@ public class MainWindow extends javax.swing.JFrame {
         
         //Kill Python Servers
         killPythonServers();
+        
+        // Close client socket
+        // toPython.closeSocket();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -283,6 +298,9 @@ public class MainWindow extends javax.swing.JFrame {
         jButton3.setEnabled(false);
         jButton5.setEnabled(true);
         jComboBox1.setEnabled(true);
+        
+        // Tell Python Server to stop Capture
+        toPython.sendMessage("stop_capture");
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -290,6 +308,9 @@ public class MainWindow extends javax.swing.JFrame {
         jButton5.setEnabled(false);
         jButton3.setEnabled(true);
         jComboBox1.setEnabled(false);
+        
+        // Tell Python Server to Start Capture
+        toPython.sendMessage(String.valueOf(jComboBox1.getSelectedItem()));
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**

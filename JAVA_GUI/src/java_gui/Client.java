@@ -5,59 +5,63 @@
  */
 package java_gui;
 
-
 import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.InetAddress;
 import java.net.Socket;
- 
-public class Client
-{
- 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class Client {
+
     private static Socket socket;
     private String host = "localhost";
-    private int port = 65432;
-    public static String sendMessage = "2";
-    
-    
-    public Client()
-    {
-        
+    private int port = 65431;
+
+    InetAddress address;
+    OutputStream os;
+    OutputStreamWriter osw;
+    BufferedWriter bw;
+
+    public Client() {
+
     }
- 
-    public void sendMessage( )
-    {
-        try
-        { 
-            InetAddress address = InetAddress.getByName(host);
+
+    public void connectToServer() {
+        try {
+            address = InetAddress.getByName(host);
             socket = new Socket(address, port);
- 
+
             //Send the message to the server
-            OutputStream os = socket.getOutputStream();
-            OutputStreamWriter osw = new OutputStreamWriter(os);
-            BufferedWriter bw = new BufferedWriter(osw);
- 
-            bw.write(sendMessage);
-            bw.flush();
-            System.out.println("Message sent to the server : "+sendMessage);
- 
-        }
-        catch (Exception exception)
-        {
+            os = socket.getOutputStream();
+            osw = new OutputStreamWriter(os);
+            bw = new BufferedWriter(osw);
+
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
-        finally
-        {
-            //Closing the socket
-            try
-            {
-                socket.close();
-            }
-            catch(Exception e)
-            {
-                e.printStackTrace();
-            }
+
+    }
+
+    public void sendMessage(String messageToPython) {
+
+        try {
+            bw.write(messageToPython);
+            bw.flush();
+        } catch (IOException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public void closeSocket() {
+        //Closing the socket
+        try {
+            socket.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }

@@ -24,11 +24,7 @@ class Server():
 
 
     def startVisualizerServer(self):
-        file = open("C:\\chalmers_thesis\\data\\visualizerServer.txt",'w')
-        file.write("server launched")
-        file.close()
-        print("Server Launched")
-        
+
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             print("Listening to port:", self.visualizerPORT)
             s.bind((self.HOST, self.visualizerPORT))
@@ -51,11 +47,7 @@ class Server():
                         break
 
     def startFromJavaGUIServer(self):
-        file = open("C:\\chalmers_thesis\\data\\fromJavaGUIServer.txt",'w')
-        file.write("server launched")
-        file.close()
-        print("Server Launched")
-        
+
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             print("Listening to port:", self.fromJavaGUIPORT)
             s.bind((self.HOST, self.fromJavaGUIPORT))
@@ -69,11 +61,9 @@ class Server():
                     except:
                         print("Crashed...")
                         break
-                    file = open( self.DIR + "frame" + str(self.frameNum) + '.txt', 'w' )
+                    file = open(r"C:\chalmers_thesis\data\fromJava.txt", "w" )
                     file.write(data.decode('utf-8'))
                     file.close()
-                    print(data.decode('utf-8'))
-                    self.frameNum=self.frameNum+1
                     if not data:
                         break
 

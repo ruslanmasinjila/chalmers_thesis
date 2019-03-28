@@ -1,5 +1,7 @@
+import os
 import socket
 from threading import Thread
+from datetime import datetime
 
 # Ports used
 # 65432 is for listening to mmWave Visualizer
@@ -12,14 +14,23 @@ class Server():
         self.HOST = '127.0.0.1'
         self.visualizerPORT = 65432
         self.fromJavaGUIPORT = 65431
-        self.DIR=r"C:\chalmers_thesis\data"
+        self.rootDIR=r"C:\chalmers_thesis\data"
         self.frameNum=1
         self.launchThreads()
+
+        # 0 means don't capture
+        # 1 means capture
+        self.capture = 0
+        self.currentGesture = None
+
+        # The folder containing capture frames
+        # The folder name consists of gesture name and current time
+        self.currentDirectory = ""
 
 
     # For launching two servers
     def launchThreads(self):
-        Thread(target = self.startVisualizerServer).start()
+        #Thread(target = self.startVisualizerServer).start()
         Thread(target = self.startFromJavaGUIServer).start()
 
 
@@ -38,11 +49,12 @@ class Server():
                     except:
                         print("Crashed...")
                         break
-                    file = open( self.DIR + "frame" + str(self.frameNum) + '.txt', 'w' )
-                    file.write(data.decode('utf-8'))
-                    file.close()
-                    print(data.decode('utf-8'))
-                    self.frameNum=self.frameNum+1
+                    if(self.capture==1):
+                        file = open( self.currentDirectory + "frame" + str(self.frameNum) + '.txt', 'w' )
+                        file.write(data.decode('utf-8'))
+                        file.close()
+                        print(data.decode('utf-8'))
+                        self.frameNum=self.frameNum+1
                     if not data:
                         break
 
@@ -58,12 +70,31 @@ class Server():
                 while True:
                     try:
                         data = conn.recv(65536)
+                        data = data.decode('utf-8')
                     except:
                         print("Crashed...")
                         break
-                    file = open(r"C:\chalmers_thesis\data\fromJava.txt", "w" )
-                    file.write(data.decode('utf-8'))
-                    file.close()
+                    
+                    # Create a folder with the name and
+                    # time stamp of the gesture
+                    if(data == "stop_capture"):
+                        self.capture = 0
+                        self.frameNum = 1
+                    else:
+                        self.capture = 1
+                        self.currentGesture = data
+                        # Create new folder using gesture name and current time
+                        currentTime = datetime.now()
+                        currentTime =   str(currentTime.year)+\
+                                        str(currentTime.month)+\
+                                        str(currentTime.day)+\
+                                        str(currentTime.hour)+\
+                                        str(currentTime.minute)+\
+                                        str(currentTime.second)
+                        
+                        gesture_time = (self.currentGesture).replace(" ", "") +"_" + currentTime
+                        self.currentDirectory = os.path.join(self.rootDIR, gesture_time)
+                        
                     if not data:
                         break
 

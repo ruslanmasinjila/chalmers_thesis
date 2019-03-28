@@ -30,7 +30,7 @@ class Server():
 
     # For launching two servers
     def launchThreads(self):
-        #Thread(target = self.startVisualizerServer).start()
+        Thread(target = self.startVisualizerServer).start()
         Thread(target = self.startFromJavaGUIServer).start()
 
 

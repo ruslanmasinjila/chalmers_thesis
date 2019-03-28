@@ -28,20 +28,40 @@ public class MainWindow extends javax.swing.JFrame {
     String pythonServerKiller = "python \"C:\\chalmers_thesis\\py_node sockets\\killer.py\" ";
 
     // Path to Python Server
-    String launchPythonServer = "python \"C:\\chalmers_thesis\\py_node sockets\\server.py\" ";
+    String launchPythonServers = "python \"C:\\chalmers_thesis\\py_node sockets\\server.py\" ";
 
     public MainWindow() {
         // Kill potential processes running on ports 65432 and 65431
 
-        try {
+        killPythonServers();
+        initComponents();
+    }
 
+    ////////////////////////////////////////////////////////////////////////////
+    // CUSTOME METHODS
+    ////////////////////////////////////////////////////////////////////////////
+    // Kills python servers running on localhost at ports 65432 and 65431
+    // when GUI is launched
+    public void killPythonServers() {
+        try {
             // Call the installation process
             Process p = Runtime.getRuntime().exec(pythonServerKiller);
 
         } catch (IOException ex) {
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
-        initComponents();
+    }
+
+    // Launches Python Servers running on localhost at ports 65432 and 65431
+    public void launchPythonServers() {
+        try {
+            // Call the installation process
+            Process p = Runtime.getRuntime().exec(launchPythonServers);
+
+        } catch (IOException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     /**
@@ -235,16 +255,11 @@ public class MainWindow extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         jButton1.setEnabled(false);
-        try {
+        jComboBox1.setEnabled(true);
 
-            // Call the installation process
-            Process p = Runtime.getRuntime().exec(launchPythonServer);
+        // Launch the servers
+        launchPythonServers();
 
-        } catch (IOException ex) {
-            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
         // Set the Gesture DropDown Menu Visible
         jPanel4.setVisible(true);
         jButton2.setEnabled(true);
@@ -257,18 +272,24 @@ public class MainWindow extends javax.swing.JFrame {
         jButton5.setEnabled(true);
         jButton3.setEnabled(false);
         jPanel4.setVisible(false);
+        
+        
+        //Kill Python Servers
+        killPythonServers();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         jButton3.setEnabled(false);
         jButton5.setEnabled(true);
+        jComboBox1.setEnabled(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
         jButton5.setEnabled(false);
         jButton3.setEnabled(true);
+        jComboBox1.setEnabled(false);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**

@@ -10,14 +10,16 @@ class Server():
         
         self.HOST = '127.0.0.1' # Standard loopback interface address (localhost)
         self.PORT = 65432       # Port to listen on (non-privileged ports are > 1023)
-        self.DIR="C:\\chalmers_thesis\\data\\"
+        self.DIR=r"C:\chalmers_thesis\data"
         self.frameNum=1
         self.startVisualizerServer()
-        file = open("C:\chalmers_thesis\data\launched.txt","w")
-        file.write("server launched")
-        file.close()
+
 
     def startVisualizerServer(self):
+        file = open("C:\\chalmers_thesis\\data\\launched.txt",'w')
+        file.write("server launched")
+        file.close()
+        print("Server Launched")
         
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             print("Listening to port:", self.PORT)

@@ -2,6 +2,8 @@ import os
 import socket
 from threading import Thread
 from datetime import datetime
+import subprocess
+import time
 
 # Ports used
 # 65432 is for listening to mmWave Visualizer
@@ -32,6 +34,8 @@ class Server():
     def launchThreads(self):
         Thread(target = self.startVisualizerServer).start()
         Thread(target = self.startFromJavaGUIServer).start()
+        time.sleep(2)
+        subprocess.Popen(r"C:\Users\ruslan\guicomposer\runtime\gcruntime.v7\mmWave_Demo_Visualizer\launcher.exe")
 
 
     def startVisualizerServer(self):
@@ -50,10 +54,9 @@ class Server():
                         print("Crashed...")
                         break
                     if(self.capture==1):
-                        file = open( self.currentDirectory + "frame" + str(self.frameNum) + '.txt', 'w' )
+                        file = open( self.currentDirectory + "\\frame" + str(self.frameNum) + '.txt', 'w' )
                         file.write(data.decode('utf-8'))
                         file.close()
-                        print(data.decode('utf-8'))
                         self.frameNum=self.frameNum+1
                     if not data:
                         break
@@ -79,8 +82,9 @@ class Server():
                     # time stamp of the gesture
                     if(data == "stop_capture"):
                         self.capture = 0
-                        self.frameNum = 1
+
                     else:
+                        self.frameNum = 1
                         self.capture = 1
                         self.currentGesture = data
                         # Create new folder using gesture name and current time
@@ -94,7 +98,7 @@ class Server():
                         
                         gesture_time = (self.currentGesture).replace(" ", "") +"_" + currentTime
                         self.currentDirectory = os.path.join(self.rootDIR, gesture_time)
-                        
+                        os.mkdir(self.currentDirectory)
                     if not data:
                         break
 

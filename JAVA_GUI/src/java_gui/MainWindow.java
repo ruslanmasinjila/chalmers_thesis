@@ -26,6 +26,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     // Path to Python Server
     String launchPythonServers = "python \"C:\\chalmers_thesis\\py_node sockets\\server.py\" ";
+    
 
     public MainWindow() {
         // Kill potential processes running on ports 65432 and 65431

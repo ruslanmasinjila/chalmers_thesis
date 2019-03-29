@@ -5,6 +5,7 @@ from datetime import datetime
 import subprocess
 import time
 
+
 # Ports used
 # 65432 is for listening to mmWave Visualizer
 # 65431 is for listening to Java GUI
@@ -12,7 +13,7 @@ import time
 class Server():
 
     def __init__(self):
-        
+        self.configFileName = r"C:\chalmers_thesis\py_node sockets\16fps.cfg"
         self.HOST = '127.0.0.1'
         self.visualizerPORT = 65432
         self.fromJavaGUIPORT = 65431
@@ -36,6 +37,7 @@ class Server():
         Thread(target = self.startFromJavaGUIServer).start()
         time.sleep(2)
         subprocess.Popen(r"C:\Users\ruslan\guicomposer\runtime\gcruntime.v7\mmWave_Demo_Visualizer\launcher.exe")
+
 
 
     def startVisualizerServer(self):
@@ -101,8 +103,7 @@ class Server():
                         os.mkdir(self.currentDirectory)
                     if not data:
                         break
-
-
+                    
 if __name__ == "__main__":
 
     server = Server()

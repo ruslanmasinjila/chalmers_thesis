@@ -1,5 +1,4 @@
-Current Status
----------------
+
 INSTRUCTIONS:
 1. Place folder "chalmers_thesis" into C directory
 2. Donwload and install mmWaveVisualizer from "https://dev.ti.com/gallery/info/mmwave/mmWave_Demo_Visualizer//" or from "https://github.com/ruslanmasinjila/mmWaveVisualizer"
@@ -10,11 +9,13 @@ INSTRUCTIONS:
 7. Run mmWave Visualizer
 8. Select Geture to record from the dropdown menu of the JAVA GUI
 9. Click on "START CAPTURE" to start saving frames into C:\chalmers_thesis\data
-10. Click o "STOP CAPTURE" to stop saving frames
+10.Click on "STOP CAPTURE" to stop saving frames
+---------------
+Current Status
 ---------------
 Version 1 [Complete]
-- JAVA GUI Launches 2 python servers, and 1 mmWaveVisualizer Client
+- JAVA GUI Launches 2 python servers, 1 mmWaveVisualizer Client, and One Java client
 - One of the python servers receives range-doppler heatmaps from mmWaveVisualizer Client and saves data.
-- The other python server receives commands from JAVA GUI.
+- The other python server receives commands from Java Client
 
 ----------------------------------------

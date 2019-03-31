@@ -1,0 +1,66 @@
+name: thesis
+channels:
+  - anaconda
+  - conda-forge
+  - defaults
+dependencies:
+  - blas=1.0=mkl
+  - certifi=2019.3.9=py37_0
+  - icc_rt=2019.0.0=h0cc432a_1
+  - icu=58.2=ha66f8fd_1
+  - intel-openmp=2019.1=144
+  - jpeg=9b=hb83a4c4_2
+  - libpng=1.6.36=h2a8f88b_0
+  - mkl=2019.1=144
+  - mkl_fft=1.0.10=py37h14836fe_0
+  - mkl_random=1.0.2=py37h343c172_0
+  - numpy=1.15.4=py37h19fb1c0_0
+  - numpy-base=1.15.4=py37hc3f5095_0
+  - psutil=5.6.1=py37he774522_0
+  - pyqt=5.9.2=py37ha878b3d_0
+  - pyqtgraph=0.10.0=py37h28b3542_3
+  - pyserial=3.4=py37_0
+  - python=3.7.2=h8c8aaf0_10
+  - sip=4.19.13=py37ha925a31_0
+  - sqlite=3.26.0=he774522_0
+  - vc=14.1=h21ff451_3
+  - vs2015_runtime=15.5.2=3
+  - wincertstore=0.2=py37_0
+  - zlib=1.2.11=h62dcd97_3
+  - ca-certificates=2019.3.9=hecc5488_0
+  - cycler=0.10.0=py_1
+  - freetype=2.9.1=h5db478b_1005
+  - kiwisolver=1.0.1=py37he980bc4_1002
+  - matplotlib=3.0.3=py37_0
+  - matplotlib-base=3.0.3=py37h3e3dc42_0
+  - openssl=1.1.1b=hfa6e2cd_1
+  - pip=19.0.1=py37_0
+  - pyparsing=2.3.1=py_0
+  - python-dateutil=2.8.0=py_0
+  - setuptools=40.8.0=py37_0
+  - six=1.12.0=py37_1000
+  - tornado=6.0.1=py37hfa6e2cd_0
+  - wheel=0.32.3=py37_0
+  - qt=5.9.7=vc14h73c81de_0
+  - pip:
+    - absl-py==0.7.0
+    - astor==0.7.1
+    - gast==0.2.2
+    - grpcio==1.18.0
+    - h5py==2.9.0
+    - keras==2.2.4
+    - keras-applications==1.0.7
+    - keras-preprocessing==1.0.9
+    - markdown==3.0.1
+    - mock==2.0.0
+    - pbr==5.1.2
+    - protobuf==3.6.1
+    - pyyaml==3.13
+    - scipy==1.2.1
+    - tensorboard==1.12.2
+    - tensorflow==1.13.0rc2
+    - tensorflow-estimator==1.13.0
+    - termcolor==1.1.0
+    - werkzeug==0.14.1
+prefix: C:\Users\ruslan\Anaconda3\envs\thesis
+

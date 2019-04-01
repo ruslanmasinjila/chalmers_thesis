@@ -36,7 +36,7 @@ class Server():
         Thread(target = self.startVisualizerServer).start()
         Thread(target = self.startFromJavaGUIServer).start()
         time.sleep(2)
-        #subprocess.Popen(r"C:\Users\ruslan\guicomposer\runtime\gcruntime.v7\mmWave_Demo_Visualizer\launcher.exe")
+        subprocess.Popen(r"C:\Users\ruslan\guicomposer\runtime\gcruntime.v7\mmWave_Demo_Visualizer\launcher.exe")
 
 
 

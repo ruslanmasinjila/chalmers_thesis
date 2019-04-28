@@ -3,28 +3,28 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pylab as plt
 
-directory=r"C:\chalmers_thesis\data\Stop_2019427233636"
+directory=r"C:\chalmers_thesis\data\TurnAround_2019428105659"
 
 frames=[]
 prefix="\\frame"
 
-aFrame1=np.array(json.load(open(directory+prefix+str(1)+".txt")))
-aFrame2=np.array(json.load(open(directory+prefix+str(2)+".txt")))
-aFrame3=np.array(json.load(open(directory+prefix+str(3)+".txt")))
-aFrame4=np.array(json.load(open(directory+prefix+str(4)+".txt")))
-aFrame5=np.array(json.load(open(directory+prefix+str(5)+".txt")))
-aFrame6=np.array(json.load(open(directory+prefix+str(6)+".txt")))
-aFrame7=np.array(json.load(open(directory+prefix+str(7)+".txt")))
-aFrame8=np.array(json.load(open(directory+prefix+str(8)+".txt")))
+aFrame1=np.array(json.load(open(directory+prefix+str(50)+".txt")))
+aFrame2=np.array(json.load(open(directory+prefix+str(51)+".txt")))
+aFrame3=np.array(json.load(open(directory+prefix+str(52)+".txt")))
+aFrame4=np.array(json.load(open(directory+prefix+str(53)+".txt")))
+aFrame5=np.array(json.load(open(directory+prefix+str(54)+".txt")))
+aFrame6=np.array(json.load(open(directory+prefix+str(55)+".txt")))
+aFrame7=np.array(json.load(open(directory+prefix+str(56)+".txt")))
+aFrame8=np.array(json.load(open(directory+prefix+str(57)+".txt")))
 
-aFrame1=aFrame1[:,0:60]
-aFrame2=aFrame2[:,0:60]
-aFrame3=aFrame3[:,0:60]
-aFrame4=aFrame4[:,0:60]
-aFrame5=aFrame5[:,0:60]
-aFrame6=aFrame6[:,0:60]
-aFrame7=aFrame7[:,0:60]
-aFrame8=aFrame8[:,0:60]
+aFrame1=aFrame1[:,0:128]
+aFrame2=aFrame2[:,0:128]
+aFrame3=aFrame3[:,0:128]
+aFrame4=aFrame4[:,0:128]
+aFrame5=aFrame5[:,0:128]
+aFrame6=aFrame6[:,0:128]
+aFrame7=aFrame7[:,0:128]
+aFrame8=aFrame8[:,0:128]
 
 
 
@@ -51,9 +51,11 @@ aFrame8=aFrame8[:,0:60]
 
 megaDupa=np.vstack((aFrame1,aFrame2,aFrame3,aFrame4,aFrame5,aFrame6,aFrame7,aFrame8))
 
-ax = sns.heatmap(megaDupa)
-plt.show()
 
+
+ax = sns.heatmap(megaDupa,cmap="cool")
+plt.show()
+print(np.shape(megaDupa))
 
 
 

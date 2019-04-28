@@ -13,9 +13,11 @@ INSTRUCTIONS:
 ---------------
 Current Status
 ---------------
-Version 1 [Complete]
+Version 1.1 [Complete]
 - JAVA GUI Launches 2 python servers, 1 mmWaveVisualizer Client, and One Java client
 - One of the python servers receives range-doppler heatmaps from mmWaveVisualizer Client and saves data.
 - The other python server receives commands from Java Client
+- Preprocessing of captured frames into 128x128 features standardized to [0,1]
+- Training data can be found at https://github.com/ruslanmasinjila/awr1642_training_data
 
 ----------------------------------------

@@ -5,9 +5,10 @@ import matplotlib.pylab as plt
 
 
 # Hand waving
-raw_data_folder=r"C:\chalmers_thesis\data\Stop_2019428104927"
-destination_data_folder=r"C:\chalmers_thesis\training_data\stop"
+raw_data_folder=r"C:\chalmers_thesis\data\TurnAround_2019428105659"
+destination_data_folder=r"C:\chalmers_thesis\training_data\turn_around"
 
+num_range_bins=64
 frames=[]
 prefix="\\frame"
 frame_rate=8
@@ -20,10 +21,10 @@ for i in range(start_index,end_index):
     temp=frames[-1]
     
     # Remove range bins out of range
-    frames[-1]=temp[:,0:128]
+    frames[-1]=temp[:,0:num_range_bins]
     
     #standardize data to [0,1]
-    frames[-1]=(frames[-1]-np.min(frames[-1]))/(np.max(frames[-1])-np.min(frames[-1]))
+    #frames[-1]=(frames[-1]-np.min(frames[-1]))/(np.max(frames[-1])-np.min(frames[-1]))
 
 
 

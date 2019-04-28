@@ -3,7 +3,8 @@ import os
 import random
 
 
-size=128
+num_range_bins=64
+num_doppler_bins=16*8
 # Directory where the data fro training is stored
 DATADIR=r"C:\training_data"
 
@@ -37,7 +38,7 @@ for features, label in training_data:
     x.append(features)
     y.append(label)
 
-x=np.array(x).reshape(-1,size,size,1)
+x=np.array(x).reshape(-1,num_doppler_bins,num_range_bins,1)
 # Now save the features and labels in compact form
 np.save(DATADIR+"\\features",x)
 np.save(DATADIR+"\\labels",y)

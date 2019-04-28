@@ -5,14 +5,14 @@ import matplotlib.pylab as plt
 
 
 # Hand waving
-raw_data_folder=r"C:\chalmers_thesis\data\Stop_2019428104927"
+raw_data_folder=r"C:\chalmers_thesis\data\HandWaving_2019428102740"
 destination_data_folder=r"C:\chalmers_thesis\training_data\stop"
 
 frames=[]
 prefix="\\frame"
 frame_rate=8
 start_index=50
-end_index=1000+start_index+frame_rate
+end_index=1250+start_index+frame_rate
 
 
 for i in range(start_index,end_index):
@@ -32,11 +32,11 @@ conc_frames=[]
 for i in range(len(frames)-frame_rate):
     conc_frames.append(np.vstack((frames[i],frames[i+1],frames[i+2],frames[i+3],frames[i+4],frames[i+5],frames[i+6],frames[i+7])))
     
-ax = sns.heatmap(conc_frames[100],cmap="cool")
+ax = sns.heatmap(conc_frames[750],cmap="cool")
 plt.show()
 
 
 
 
-for i in range(len(conc_frames)):
-    np.save(destination_data_folder+ "\\frame" + str(i),conc_frames[i])
+#for i in range(len(conc_frames)):
+#    np.save(destination_data_folder+ "\\frame" + str(i),conc_frames[i])

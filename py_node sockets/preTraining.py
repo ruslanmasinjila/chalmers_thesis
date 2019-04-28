@@ -1,11 +1,9 @@
 import numpy as np
-import matplotlib.pyplot as plt
 import os
 import random
-import seaborn as sns
 
 
-
+size=128
 # Directory where the data fro training is stored
 DATADIR=r"C:\training_data"
 
@@ -26,6 +24,7 @@ for category in CATEGORIES:
 random.shuffle(training_data)
 
 
+
 # Manual separation of features and labels
 
 # Features
@@ -38,6 +37,7 @@ for features, label in training_data:
     x.append(features)
     y.append(label)
 
+x=np.array(x).reshape(-1,size,size,1)
 # Now save the features and labels in compact form
 np.save(DATADIR+"\\features",x)
 np.save(DATADIR+"\\labels",y)

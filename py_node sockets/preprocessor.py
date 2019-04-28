@@ -5,7 +5,7 @@ import matplotlib.pylab as plt
 
 
 # Hand waving
-raw_data_folder=r"C:\chalmers_thesis\data\HandWaving_2019428102740"
+raw_data_folder=r"C:\chalmers_thesis\data\Stop_2019428104927"
 destination_data_folder=r"C:\chalmers_thesis\training_data\stop"
 
 frames=[]
@@ -38,5 +38,5 @@ plt.show()
 
 
 
-#for i in range(len(conc_frames)):
-#    np.save(destination_data_folder+ "\\frame" + str(i),conc_frames[i])
+for i in range(len(conc_frames)):
+    np.save(destination_data_folder+ "\\frame" + str(i),conc_frames[i])

@@ -18,6 +18,6 @@ Version 1.1 [Complete]
 - One of the python servers receives range-doppler heatmaps from mmWaveVisualizer Client and saves data.
 - The other python server receives commands from Java Client
 - Preprocessing of captured frames into 128x128 features standardized to [0,1]
-- Training data can be found at https://github.com/ruslanmasinjila/awr1642_training_data
+- Training data can be found at https://drive.google.com/drive/folders/1Fl0gFXouDYUSRcVearLVbsP_qxscS_Y1?usp=sharing
 
 ----------------------------------------

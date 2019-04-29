@@ -1,14 +1,11 @@
 import json
 import numpy as np
-import seaborn as sns
-import matplotlib.pylab as plt
-
 
 # Hand waving
 raw_data_folder=r"C:\chalmers_thesis\data\TurnAround_2019428105659"
 destination_data_folder=r"C:\training_data\turn_around"
 
-num_range_bins=64
+num_range_bins=256
 frames=[]
 prefix="\\frame"
 frame_rate=8
@@ -17,27 +14,16 @@ end_index=1250+start_index+frame_rate
 
 
 for i in range(start_index,end_index):
-    frames.append(np.array((json.load(open(raw_data_folder+prefix+str(i)+".txt")))))
-    temp=frames[-1]
-    
-    # Remove range bins out of range
-    frames[-1]=temp[:,0:num_range_bins]
-    
-    #standardize data to [0,1]
-    #frames[-1]=(frames[-1]-np.min(frames[-1]))/(np.max(frames[-1])-np.min(frames[-1]))
+    frames.append((json.load(open(raw_data_folder+prefix+str(i)+".txt"))))
 
-
-
-
-conc_frames=[]
 for i in range(len(frames)-frame_rate):
-    conc_frames.append(np.vstack((frames[i],frames[i+1],frames[i+2],frames[i+3],frames[i+4],frames[i+5],frames[i+6],frames[i+7])))
-    
-ax = sns.heatmap(conc_frames[750],cmap="cool")
-plt.show()
-
-
-
-
-for i in range(len(conc_frames)):
-    np.save(destination_data_folder+ "\\frame" + str(i),conc_frames[i])
+    sequence=[]
+    sequence.append(frames[i])
+    sequence.append(frames[i+1])
+    sequence.append(frames[i+2])
+    sequence.append(frames[i+3])
+    sequence.append(frames[i+4])
+    sequence.append(frames[i+5])
+    sequence.append(frames[i+6])
+    sequence.append(frames[i+7])
+    np.save(destination_data_folder+ "\\frame" + str(i),sequence)

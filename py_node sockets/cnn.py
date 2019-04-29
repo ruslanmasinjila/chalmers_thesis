@@ -22,7 +22,7 @@ y=np.load(os.path.join(DATADIR,"labels.npy"))
 model= Sequential()
 
 model.add(Conv2D(8, (3,3), input_shape=x.shape[1:]))
-model.add(Activation("softmax"))
+model.add(Activation("relu"))
 model.add(MaxPooling2D(pool_size=(2,2)))
 
 
@@ -39,4 +39,4 @@ model.add(Activation("sigmoid"))
 
 model.compile(loss="binary_crossentropy",optimizer="adam",metrics=["accuracy"])
 
-model.fit(x,y,batch_size=10, validation_split=0.2, epochs=10)
+model.fit(x,y,batch_size=64, validation_split=0.2, epochs=10)

@@ -6,7 +6,7 @@ import matplotlib.pylab as plt
 
 # Hand waving
 raw_data_folder=r"C:\chalmers_thesis\data\TurnAround_2019428105659"
-destination_data_folder=r"C:\chalmers_thesis\training_data\turn_around"
+destination_data_folder=r"C:\training_data\turn_around"
 
 num_range_bins=64
 frames=[]

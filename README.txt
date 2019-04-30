@@ -33,4 +33,40 @@ Version 2.0 [Complete]
 * The data format is as follows: [num_of_samples, frame_rate, num_of_doppler_bins, num_of_range_bins]
 * Lines 29-31 convolves each frame of the "frame_rate" and flattens the result of the convolution
 * Lines 36-45 is the LSTM layer containing learning and decay rates
+* Achieving 1.0 Accuracy on validation set
+
+################# SAMPLE OUTPUT #################
+
+(5000, 16, 16, 64)
+(16, 16, 64, 1)
+Train on 4000 samples, validate on 1000 samples
+Epoch 1/10
+4000/4000 [==============================] - 34s 9ms/sample - loss: 0.8051 - acc: 0.6122 - val_loss: 0.0466 - val_acc: 0.9960
+Epoch 2/10
+4000/4000 [==============================] - 30s 7ms/sample - loss: 0.0772 - acc: 0.9760 - val_loss: 0.0133 - val_acc: 0.9960
+Epoch 3/10
+4000/4000 [==============================] - 29s 7ms/sample - loss: 0.0091 - acc: 0.9970 - val_loss: 5.8877e-07 - val_acc: 1.0000
+Epoch 4/10
+4000/4000 [==============================] - 31s 8ms/sample - loss: 0.0038 - acc: 0.9987 - val_loss: 1.3311e-06 - val_acc: 1.0000
+Epoch 5/10
+4000/4000 [==============================] - 31s 8ms/sample - loss: 0.0094 - acc: 0.9977 - val_loss: 2.9169 - val_acc: 0.7760
+Epoch 6/10
+4000/4000 [==============================] - 29s 7ms/sample - loss: 0.5048 - acc: 0.8313 - val_loss: 0.2479 - val_acc: 0.9890
+Epoch 7/10
+4000/4000 [==============================] - 29s 7ms/sample - loss: 0.2027 - acc: 0.9613 - val_loss: 5.5230e-07 - val_acc: 1.0000
+Epoch 8/10
+4000/4000 [==============================] - 30s 7ms/sample - loss: 0.0029 - acc: 0.9990 - val_loss: 6.0558e-07 - val_acc: 1.0000
+Epoch 9/10
+4000/4000 [==============================] - 28s 7ms/sample - loss: 0.0063 - acc: 0.9990 - val_loss: 3.5763e-07 - val_acc: 1.0000
+Epoch 10/10
+4000/4000 [==============================] - 31s 8ms/sample - loss: 2.1879e-04 - acc: 1.0000 - val_loss: 3.5763e-07 - val_acc: 1.0000
+
+################################################
+
 ---------------------------------------
+
+
+
+TODO:
+1. Capture real-time data using radar and classify the gestures.
+2. No need of GUI for now. Use terminal. 

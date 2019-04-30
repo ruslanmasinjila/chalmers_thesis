@@ -15,8 +15,8 @@ DATADIR=r"C:\training_data"
 x=np.load(os.path.join(DATADIR,"features.npy"))
 
 print(np.shape(x))
-x=np.array(x).reshape(-1,frame_rate,num_doppler_bins*num_range_bins)
-print(np.shape(x))
+x=np.array(x).reshape(-1,frame_rate,num_doppler_bins,num_range_bins,1)
+print(x.shape[1:])
 
 # Load the labels set
 y=np.load(os.path.join(DATADIR,"labels.npy"))
@@ -25,16 +25,24 @@ y=np.load(os.path.join(DATADIR,"labels.npy"))
 
 #Start building the model
 model = Sequential()
-model.add(LSTM(64, input_shape=x.shape[1:],activation="relu",return_sequences="True"))
+####################### TIME DISTRIBUTED CONVOLUTIONAL LAYER #######################
+model.add(TimeDistributed(Conv2D(8, (3,3), input_shape=x.shape[1:])))
+model.add(TimeDistributed(MaxPooling2D(pool_size=(2,2))))
+model.add(TimeDistributed(Flatten()))
 
+
+####################### LSTM LAYER #######################
+
+model.add(LSTM(64,activation="relu",return_sequences="True"))
+model.add(Dropout(0.2))
 
 model.add(LSTM(64,activation="relu"))
-
+model.add(Dropout(0.2))
 
 model.add(Dense(32,activation="relu"))
-
+model.add(Dropout(0.2))
 
 model.add(Dense(4,activation="softmax"))
 
 model.compile(loss="sparse_categorical_crossentropy",optimizer="adam",metrics=["accuracy"])
-model.fit(x,y, validation_split=0.2, epochs=1)
+model.fit(x,y, validation_split=0.2, epochs=3)

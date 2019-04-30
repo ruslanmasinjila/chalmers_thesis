@@ -11,6 +11,8 @@ destination_data_folder=r"C:\training_data\turn_around"
 frames=[]
 prefix="\\frame"
 frame_rate=16
+num_doppler_bins=16
+num_range_bins=64
 start_index=50
 end_index=1250+start_index+frame_rate
 
@@ -20,7 +22,7 @@ end_index=1250+start_index+frame_rate
 for i in range(start_index,end_index):
     frames.append(np.array(json.load(open(raw_data_folder+prefix+str(i)+".txt"))))
     temp=(frames[-1])/(np.max(frames[-1]))
-    frames[-1]=temp[:,0:64].flatten()
+    frames[-1]=temp[:,0:num_range_bins]
     frames[-1]=frames[-1].tolist()
 
 
@@ -43,5 +45,4 @@ for i in range(len(frames)-frame_rate):
     sequence.append(frames[i+13])
     sequence.append(frames[i+14])
     sequence.append(frames[i+15])
-    sequence=(np.array(sequence).flatten()).tolist()
     np.save(destination_data_folder+ "\\frame" + str(i),sequence)

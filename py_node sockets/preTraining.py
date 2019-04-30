@@ -1,5 +1,6 @@
 import numpy as np
 import os
+import random
 
 
 
@@ -19,6 +20,9 @@ for category in CATEGORIES:
     for frame in os.listdir(path):
         training_data.append([np.load(os.path.join(path,frame)),class_num])
 
+# Shuffle the training data
+random.shuffle(training_data)
+
 # Manual separation of features and labels
 
 # Features
@@ -30,6 +34,8 @@ y = []
 for features, label in training_data:
     x.append(features)
     y.append(label)
+
+
 
 # Now save the features and labels in compact form
 np.save(DATADIR+"\\features",x)

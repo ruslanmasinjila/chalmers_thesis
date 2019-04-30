@@ -1,4 +1,4 @@
-# Convolution Neural Network
+# CNN-LTSM Neural Network
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout, Activation, Flatten, Conv2D, MaxPooling2D, TimeDistributed, LSTM
@@ -44,5 +44,6 @@ model.add(Dropout(0.2))
 
 model.add(Dense(4,activation="softmax"))
 
-model.compile(loss="sparse_categorical_crossentropy",optimizer="adam",metrics=["accuracy"])
-model.fit(x,y, validation_split=0.2, epochs=3)
+opt=tf.keras.optimizers.Adam(lr=1e-3,decay=1e-5)
+model.compile(loss="sparse_categorical_crossentropy",optimizer=opt,metrics=["accuracy"])
+model.fit(x,y, validation_split=0.2, epochs=10)

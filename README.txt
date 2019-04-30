@@ -25,3 +25,12 @@ Version 1.2 [Complete]
 - Preprocessing of captured frames into 128x128 features standardized to [0,1]
 - Training data can be found at https://drive.google.com/drive/folders/1Fl0gFXouDYUSRcVearLVbsP_qxscS_Y1?usp=sharing
 - Achieving accuracy of 0.27
+
+
+----------------------------------------
+Version 2.0 [Complete]
+* Implemented Time distributed CNN followed by LSTM.
+* The data format is as follows: [num_of_samples, frame_rate, num_of_doppler_bins, num_of_range_bins]
+* Lines 29-31 convolves each frame of the "frame_rate" and flattens the result of the convolution
+* Lines 36-45 is the LSTM layer containing learning and decay rates
+---------------------------------------

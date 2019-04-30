@@ -3,7 +3,7 @@ import os
 import random
 
 
-
+# Puts together training samples (each of which contains 16 frames) along with their labels and shuffles the training set
 # Directory where the data fro training is stored
 DATADIR=r"C:\training_data"
 

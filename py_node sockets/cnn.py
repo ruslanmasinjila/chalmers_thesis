@@ -25,16 +25,16 @@ y=np.load(os.path.join(DATADIR,"labels.npy"))
 
 #Start building the model
 model = Sequential()
-model.add(LSTM(128, input_shape=x.shape[1:],activation="relu",return_sequences="True"))
-model.add(Dropout(0.2))
+model.add(LSTM(64, input_shape=x.shape[1:],activation="relu",return_sequences="True"))
 
-model.add(LSTM(128,activation="relu"))
-model.add(Dropout(0.2))
+
+model.add(LSTM(64,activation="relu"))
+
 
 model.add(Dense(32,activation="relu"))
-model.add(Dropout(0.2))
+
 
 model.add(Dense(4,activation="softmax"))
 
 model.compile(loss="sparse_categorical_crossentropy",optimizer="adam",metrics=["accuracy"])
-model.fit(x,y,batch_size=10, validation_split=0.2, epochs=10)
+model.fit(x,y, validation_split=0.2, epochs=1)

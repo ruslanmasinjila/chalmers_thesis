@@ -71,6 +71,11 @@ Version 2.1 [Unstable]
 Launch GUI from Netbeans, then launch python servers and mmwave visualizer from Spyder, finally connect to mmwave visualizer from GUI.
 
 ---------------------------------------
+Version 2.2 [Stable]
+* Spyder takes control over GUI and Everything else
+
+---------------------------------------
+
 
 TODO:
 1. Capture real-time data using radar and classify the gestures.

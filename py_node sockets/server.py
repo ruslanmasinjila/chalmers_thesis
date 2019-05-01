@@ -17,6 +17,8 @@ serverKiller=Killer()
 class Server():
 
     def __init__(self):
+        
+        self.predict=Predict()
 
         self.HOST = '127.0.0.1'
         self.visualizerPORT = 65432
@@ -28,13 +30,14 @@ class Server():
         # 0 means don't capture
         # 1 means capture
         self.capture = 0
+        self.start_recognition=0
         self.currentGesture = None
 
         # The folder containing capture frames
         # The folder name consists of gesture name and current time
         self.currentDirectory = ""
         
-        self.predict=Predict()
+
 
 
     # For launching two servers
@@ -67,6 +70,8 @@ class Server():
                         file.write(data.decode('utf-8'))
                         file.close()
                         self.frameNum=self.frameNum+1
+                    if(self.start_recognition==1):
+                        pass
                     if not data:
                         break
 
@@ -91,10 +96,18 @@ class Server():
                     # time stamp of the gesture
                     if(data == "stop_capture"):
                         self.capture = 0
+                        
+                    elif(data=="start_recognition"):
+                        self.start_recognition=1
+                        self.capture=0
+                        
+                    elif(data=="stop_recognition"):
+                        self.start_recognition=0
 
                     else:
                         self.frameNum = 1
                         self.capture = 1
+                        self.start_recognition=0
                         self.currentGesture = data
                         # Create new folder using gesture name and current time
                         currentTime = datetime.now()
@@ -110,6 +123,10 @@ class Server():
                         os.mkdir(self.currentDirectory)
                     if not data:
                         break
+    
+    def makePrediction(self,frameSequence):
+        pass
+        
                     
 if __name__ == "__main__":
 

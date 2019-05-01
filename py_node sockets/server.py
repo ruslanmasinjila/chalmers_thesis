@@ -17,10 +17,9 @@ class Server():
         self.HOST = '127.0.0.1'
         self.visualizerPORT = 65432
         self.fromJavaGUIPORT = 65431
+        self.toJAVAGUIPORT=65430
         self.rootDIR=r"C:\chalmers_thesis\data"
         self.frameNum=1
-        self.launchThreads()
-
         # 0 means don't capture
         # 1 means capture
         self.capture = 0
@@ -29,14 +28,25 @@ class Server():
         # The folder containing capture frames
         # The folder name consists of gesture name and current time
         self.currentDirectory = ""
+        
+        # When 0, no reply is sent to GUI
+        # When 1, reply is sent
+        self.replyFlag = 1
+        
+        # Message TO JAVA GUI
+        self.replyToGUI = "Hello\n"
+        self.launchThreads()
+
+
 
 
     # For launching two servers
     def launchThreads(self):
         Thread(target = self.startVisualizerServer).start()
         Thread(target = self.startFromJavaGUIServer).start()
+        Thread(target = self.launchClient).start()
         time.sleep(2)
-        subprocess.Popen(r"C:\Users\ruslan\guicomposer\runtime\gcruntime.v7\mmWave_Demo_Visualizer\launcher.exe")
+        #subprocess.Popen(r"C:\Users\ruslan\guicomposer\runtime\gcruntime.v7\mmWave_Demo_Visualizer\launcher.exe")
 
 
 
@@ -103,7 +113,25 @@ class Server():
                         os.mkdir(self.currentDirectory)
                     if not data:
                         break
-                    
+
+    def launchClient(self):
+        s=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.connect((self.HOST, self.toJAVAGUIPORT))
+        print("Connected to Port: "+str(self.toJAVAGUIPORT))
+        self.clientSocket=s
+        self.sendMessageToJavaGUI()
+            
+            
+        # Checks the status of reply flag
+        # if flag is set to one, the message is sent to JAVA GUI
+    def sendMessageToJavaGUI(self):
+        while(True):
+            if(self.replyFlag==1):
+                toSend=bytes(self.replyToGUI, encoding='utf-8')
+                self.clientSocket.send(toSend)
+                self.replyFlag=0
+                
+                
 if __name__ == "__main__":
 
     server = Server()

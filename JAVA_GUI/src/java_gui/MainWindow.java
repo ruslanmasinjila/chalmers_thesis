@@ -18,6 +18,8 @@ public class MainWindow extends javax.swing.JFrame {
     /**
      * Creates new form MainWindow
      */
+    // Create java thread server that listens to python
+    Thread fromPython = new Thread(new Server());
 
     Client toPython = new Client();
 
@@ -32,6 +34,12 @@ public class MainWindow extends javax.swing.JFrame {
         // Kill potential processes running on ports 65432 and 65431
 
         killPythonServers();
+        
+        sleep(1000);
+        
+        // launch the JAVA Server
+        fromPython.start();
+        
         initComponents();
     }
 

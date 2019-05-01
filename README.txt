@@ -64,9 +64,17 @@ Epoch 10/10
 ################################################
 
 ---------------------------------------
+Version 2.1 [Unstable]
+* A new client was added to python. This client will be sending classification results to GUI.
+* Pretrained CNN-LSTM is loaded when python servers are launched
+* It appears tensorflow crashes when launched straight from GUI. For now
+Launch GUI from Netbeans, then launch python servers and mmwave visualizer from Spyder, finally connect to mmwave visualizer from GUI.
 
-
+---------------------------------------
 
 TODO:
 1. Capture real-time data using radar and classify the gestures.
 2. No need of GUI for now. Use terminal. 
+
+
+

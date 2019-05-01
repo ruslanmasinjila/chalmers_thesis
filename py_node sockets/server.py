@@ -5,6 +5,10 @@ from datetime import datetime
 import subprocess
 import time
 
+import tensorflow as tf
+import numpy as np
+from tensorflow.keras.models import model_from_json
+
 
 # Ports used
 # 65432 is for listening to mmWave Visualizer
@@ -34,8 +38,26 @@ class Server():
         self.replyFlag = 1
         
         # Message TO JAVA GUI
-        self.replyToGUI = "Hello\n"
+        self.replyToGUI = None
         self.launchThreads()
+        
+###############################################################################
+        # Load pretrained CNN-LSTM and Shenanigans
+        self.frame_rate=16
+        self.num_doppler_bins=16
+        self.num_range_bins=64
+        
+####################### LOAD AND COMPILE PRETRAINED CNN-LSTM MODEL ############
+        self.json_file = open(r"C:\chalmers_thesis\py_node sockets\model.json", "r")
+        self.loaded_model_json = self.json_file.read()
+        self.json_file.close()
+        self.loaded_model = model_from_json(self.loaded_model_json)
+        # load weights into new model
+        self.loaded_model.load_weights("C:\chalmers_thesis\py_node sockets\model.h5")
+        print("Loaded model from disk")
+        
+        self.opt=tf.keras.optimizers.Adam(lr=1e-3,decay=1e-5)
+        self.loaded_model.compile(loss="sparse_categorical_crossentropy",optimizer=self.opt,metrics=["accuracy"])
 
 
 
@@ -46,7 +68,7 @@ class Server():
         Thread(target = self.startFromJavaGUIServer).start()
         Thread(target = self.launchClient).start()
         time.sleep(2)
-        #subprocess.Popen(r"C:\Users\ruslan\guicomposer\runtime\gcruntime.v7\mmWave_Demo_Visualizer\launcher.exe")
+        subprocess.Popen(r"C:\Users\ruslan\guicomposer\runtime\gcruntime.v7\mmWave_Demo_Visualizer\launcher.exe")
 
 
 
@@ -122,8 +144,8 @@ class Server():
         self.sendMessageToJavaGUI()
             
             
-        # Checks the status of reply flag
-        # if flag is set to one, the message is sent to JAVA GUI
+            # Checks the status of reply flag
+            # if flag is set to one, the message is sent to JAVA GUI
     def sendMessageToJavaGUI(self):
         while(True):
             if(self.replyFlag==1):

@@ -6,6 +6,8 @@ import subprocess
 import time
 from predict import Predict
 from killer import Killer
+import numpy as np
+import json
 
 
 # Ports used
@@ -25,7 +27,8 @@ class Server():
         self.fromJavaGUIPORT = 65431
         self.rootDIR=r"C:\chalmers_thesis\data"
         self.frameNum=1
-        self.launchThreads()
+        self.frame_sequence=[]
+
 
         # 0 means don't capture
         # 1 means capture
@@ -37,6 +40,12 @@ class Server():
         # The folder name consists of gesture name and current time
         self.currentDirectory = ""
         
+        self.frame_rate=16
+        self.num_doppler_bins=16
+        self.num_range_bins=64
+        
+        self.launchThreads()
+        
 
 
 
@@ -44,6 +53,7 @@ class Server():
     def launchThreads(self):
         Thread(target = self.startVisualizerServer).start()
         Thread(target = self.startFromJavaGUIServer).start()
+        Thread(target = self.makePrediction).start()
         time.sleep(2)
         subprocess.Popen(['java', '-jar', r'C:\chalmers_thesis\JAVA_GUI\dist\JAVA_GUI.jar'])
         subprocess.Popen(r"C:\Users\ruslan\guicomposer\runtime\gcruntime.v7\mmWave_Demo_Visualizer\launcher.exe")
@@ -71,7 +81,8 @@ class Server():
                         file.close()
                         self.frameNum=self.frameNum+1
                     if(self.start_recognition==1):
-                        pass
+                        self.frame_sequence.append(np.array(json.loads(data.decode('utf-8')))[:,0:self.num_range_bins])
+                        self.frame_sequence[-1]=(self.frame_sequence[-1]/(np.max(self.frame_sequence[-1])))
                     if not data:
                         break
 
@@ -124,9 +135,11 @@ class Server():
                     if not data:
                         break
     
-    def makePrediction(self,frameSequence):
-        pass
-        
+    def makePrediction(self):
+        while(True):
+            if(len(self.frame_sequence)>=16):
+                self.predict.predictGesture(self.frame_sequence[-16:])
+                time.sleep(5)
                     
 if __name__ == "__main__":
 

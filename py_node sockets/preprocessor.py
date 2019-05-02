@@ -21,10 +21,8 @@ end_index=1250+start_index+frame_rate
 
 
 for i in range(start_index,end_index):
-    frames.append(np.array(json.load(open(raw_data_folder+prefix+str(i)+".txt"))))
-    temp=(frames[-1])/(np.max(frames[-1]))
-    frames[-1]=temp[:,0:num_range_bins]
-    frames[-1]=frames[-1].tolist()
+    frames.append(np.array(json.load(open(raw_data_folder+prefix+str(i)+".txt")))[:,0:num_range_bins])
+    frames[-1]=((frames[-1])/(np.max(frames[-1]))).tolist()
 
 
 

@@ -4,6 +4,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout, Flatten, Conv2D, MaxPooling2D, TimeDistributed, LSTM
 import numpy as np
 import os
+from tensorflow.keras.models import load_model
 
 frame_rate=16
 num_doppler_bins=16
@@ -16,7 +17,7 @@ x=np.load(os.path.join(DATADIR,"features.npy"))
 
 print(np.shape(x))
 x=np.array(x).reshape(-1,frame_rate,num_doppler_bins,num_range_bins,1)
-print(x.shape[1:])
+print(x.shape[:])
 
 # Load the labels set
 y=np.load(os.path.join(DATADIR,"labels.npy"))
@@ -48,10 +49,10 @@ opt=tf.keras.optimizers.Adam(lr=1e-3,decay=1e-5)
 model.compile(loss="sparse_categorical_crossentropy",optimizer=opt,metrics=["accuracy"])
 model.fit(x,y, validation_split=0.2, epochs=10)
 
-#import json
-#model_json = model.to_json()
-#with open("model.json", "w") as json_file:
-#    json_file.write(model_json)
-## serialize weights to HDF5
-#model.save_weights("model.h5")
-#print("Saved model to disk")
+
+#model.save('model.h5')  # creates a HDF5 file 'my_model.h5'
+#del model  # deletes the existing model
+#
+## returns a compiled model
+## identical to the previous one
+#model = load_model('model.h5')

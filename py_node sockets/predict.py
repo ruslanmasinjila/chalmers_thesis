@@ -22,7 +22,7 @@ class Predict():
         print(self.model.summary())
         
     def predictGesture(self,frame_sequence):
-        pass
-        #frame_sequence=np.array(frame_sequence).reshape(1,self.frame_rate,self.num_doppler_bins,self.num_range_bins,1)
+        frame_sequence=np.array(frame_sequence).reshape(self.frame_rate,self.num_doppler_bins,self.num_range_bins,1)
+        print(np.shape(frame_sequence))
         #result = self.model.predict(frame_sequence)
         #print(result)

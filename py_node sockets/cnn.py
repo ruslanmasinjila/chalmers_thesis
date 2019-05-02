@@ -17,7 +17,8 @@ x=np.load(os.path.join(DATADIR,"features.npy"))
 
 print(np.shape(x))
 x=np.array(x).reshape(-1,frame_rate,num_doppler_bins,num_range_bins,1)
-print(x.shape[:])
+print(x.shape[1:])
+print(x.shape[2:])
 
 # Load the labels set
 y=np.load(os.path.join(DATADIR,"labels.npy"))
@@ -27,7 +28,7 @@ y=np.load(os.path.join(DATADIR,"labels.npy"))
 #Start building the model
 model = Sequential()
 ####################### TIME DISTRIBUTED CONVOLUTIONAL LAYER #######################
-model.add(TimeDistributed(Conv2D(8, (3,3), input_shape=x.shape[1:])))
+model.add(TimeDistributed(Conv2D(8, (3,3), activation="relu", input_shape=x.shape[2:]),input_shape=x.shape[1:]))
 model.add(TimeDistributed(MaxPooling2D(pool_size=(2,2))))
 model.add(TimeDistributed(Flatten()))
 

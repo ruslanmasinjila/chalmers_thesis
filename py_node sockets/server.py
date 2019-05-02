@@ -44,6 +44,7 @@ class Server():
         self.frame_rate=16
         self.num_doppler_bins=16
         self.num_range_bins=64
+        self.previous_result=99
         
         self.launchThreads()
         
@@ -150,11 +151,21 @@ class Server():
         while(True):
             if(len(self.frame_sequence)>=16):
                 sequence_to_predict=np.array(self.frame_sequence[-16:]).reshape(1,self.frame_rate,self.num_doppler_bins,self.num_range_bins,1)
-                print(np.shape(sequence_to_predict))
                 with graph.as_default():
-                    result = model.predict(sequence_to_predict)
-                    print(result)
-                time.sleep(5)
+                    result = model.predict_classes(sequence_to_predict)
+                    if(len(result)>0):
+                        if(result[0]==0 and self.previous_result!=0):
+                            print("Waving Hand")
+                            self.previous_result=result
+                        if(result[0]==1 and self.previous_result!=1):
+                            print("Come Towards Me")
+                            self.previous_result=result
+                        #if(result[0]==2 and self.previous_result!=2):
+                        #    print("Turn Around")
+                        #if(result[0]==3):
+                        #   print("Stop")
+            if(len(self.frame_sequence)>=100):
+                del self.frame_sequence[16:]
 if __name__ == "__main__":
 
     server = Server()

@@ -76,6 +76,10 @@ Version 2.2 [Stable]
 
 ---------------------------------------
 
+Version 3.0 [Mission Accomplished]
+* Successfully implemented CNN- LTSM Neural Network using Keras.
+* 
+
 
 TODO:
 1. Capture real-time data using radar and classify the gestures.

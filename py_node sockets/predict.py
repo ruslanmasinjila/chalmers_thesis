@@ -15,14 +15,13 @@ class Predict():
         
         ####################### LOAD PRETRAINED CNN-LSTM MODEL #######################
         self.model = load_model('model.h5')
-        
-        self.opt=tf.keras.optimizers.Adam(lr=1e-3,decay=1e-5)
-        self.loaded_model.compile(loss="sparse_categorical_crossentropy",optimizer=self.opt,metrics=["accuracy"])
-        
+        #self.model._make_predict_function()
+        print("Pretrained CNN-LSTM model loaded successfully")
+        print("Summary of the model is as follows")
         print(self.model.summary())
         
     def predictGesture(self,frame_sequence):
-        frame_sequence=np.array(frame_sequence).reshape(self.frame_rate,self.num_doppler_bins,self.num_range_bins,1)
-        print(np.shape(frame_sequence))
-        #result = self.model.predict(frame_sequence)
-        #print(result)
+        frame_sequence=np.array(frame_sequence).reshape(1,self.frame_rate,self.num_doppler_bins,self.num_range_bins,1)
+        print(frame_sequence)
+        result = self.model.predict(frame_sequence)
+        print(result)

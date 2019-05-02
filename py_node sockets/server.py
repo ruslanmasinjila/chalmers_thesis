@@ -4,10 +4,14 @@ from threading import Thread
 from datetime import datetime
 import subprocess
 import time
-from predict import Predict
 from killer import Killer
 import numpy as np
 import json
+# Loads preTRained CNN-LSTM Neural Network
+# Performs prediction
+import tensorflow as tf
+from tensorflow.keras.models import load_model
+
 
 
 # Ports used
@@ -15,12 +19,9 @@ import json
 # 65431 is for listening to Java GUI
 
 serverKiller=Killer()
-
 class Server():
 
     def __init__(self):
-        
-        self.predict=Predict()
 
         self.HOST = '127.0.0.1'
         self.visualizerPORT = 65432
@@ -45,6 +46,8 @@ class Server():
         self.num_range_bins=64
         
         self.launchThreads()
+        
+
         
 
 
@@ -82,7 +85,7 @@ class Server():
                         self.frameNum=self.frameNum+1
                     if(self.start_recognition==1):
                         self.frame_sequence.append(np.array(json.loads(data.decode('utf-8')))[:,0:self.num_range_bins])
-                        self.frame_sequence[-1]=(self.frame_sequence[-1]/(np.max(self.frame_sequence[-1])))
+                        self.frame_sequence[-1]=(self.frame_sequence[-1]/(np.max(self.frame_sequence[-1]))).tolist()
                     if not data:
                         break
 
@@ -136,11 +139,22 @@ class Server():
                         break
     
     def makePrediction(self):
+
+        ####################### LOAD PRETRAINED CNN-LSTM MODEL #######################
+        model = load_model('model.h5')
+        #self.model._make_predict_function()
+        graph = tf.get_default_graph()
+        print("Pretrained CNN-LSTM model loaded successfully")
+        print("Summary of the model is as follows")
+        print(model.summary())
         while(True):
             if(len(self.frame_sequence)>=16):
-                self.predict.predictGesture(self.frame_sequence[-16:])
+                sequence_to_predict=np.array(self.frame_sequence[-16:]).reshape(1,self.frame_rate,self.num_doppler_bins,self.num_range_bins,1)
+                print(np.shape(sequence_to_predict))
+                with graph.as_default():
+                    result = model.predict(sequence_to_predict)
+                    print(result)
                 time.sleep(5)
-                    
 if __name__ == "__main__":
 
     server = Server()

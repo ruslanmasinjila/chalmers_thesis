@@ -8,7 +8,7 @@ import random
 DATADIR=r"C:\training_data"
 
 # Categories of gestures
-CATEGORIES=["hand_waving","come_towards_me","turn_around","stop"]
+CATEGORIES=["no_gesture","hand_waving","come_towards_me","turn_around","stop"]
 
 # Initialize empty list of training data
 training_data=[]
@@ -30,6 +30,7 @@ x = []
 
 # labels
 y = []
+
 
 for features, label in training_data:
     x.append(features)

@@ -149,8 +149,8 @@ class Server():
         print("Summary of the model is as follows")
         print(model.summary())
         while(True):
-            if(len(self.frame_sequence)>=16):
-                sequence_to_predict=np.array(self.frame_sequence[-16:]).reshape(1,self.frame_rate,self.num_doppler_bins,self.num_range_bins,1)
+            if(len(self.frame_sequence)>=self.frame_rate):
+                sequence_to_predict=np.array(self.frame_sequence[-self.frame_rate:]).reshape(1,self.frame_rate,self.num_doppler_bins,self.num_range_bins,1)
                 with graph.as_default():
                     result = model.predict_classes(sequence_to_predict)
                     if(len(result)>0):
@@ -160,12 +160,13 @@ class Server():
                         if(result[0]==1 and self.previous_result!=1):
                             print("Come Towards Me")
                             self.previous_result=result
-                        #if(result[0]==2 and self.previous_result!=2):
-                        #    print("Turn Around")
+                        if(result[0]==2 and self.previous_result!=2):
+                            print("Turn Around")
+                            self.previous_result=result
                         #if(result[0]==3):
                         #   print("Stop")
             if(len(self.frame_sequence)>=100):
-                del self.frame_sequence[16:]
+                del self.frame_sequence[0:-self.frame_rate]
 if __name__ == "__main__":
 
     server = Server()

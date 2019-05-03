@@ -70,7 +70,7 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jComboBox1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hand Waving", "Come Towards Me", "Turn Around", "Stop" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "No Gesture", "Hand Waving", "Come Towards Me", "Turn Around", "Stop" }));
         jComboBox1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N

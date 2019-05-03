@@ -6,7 +6,7 @@ import matplotlib.pylab as plt
 # Raw frames are joined into sequences of 16 frames (about 2 seconds each)
 # The sequences are then saved as samples for training
 
-raw_data_folder=r"C:\chalmers_thesis\data\TurnAround_2019428105659"
+raw_data_folder=r"C:\chalmers_thesis\data\TurnAround_201953223147"
 destination_data_folder=r"C:\training_data\turn_around"
 
 frames=[]

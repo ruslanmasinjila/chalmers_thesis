@@ -4,7 +4,10 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout, Flatten, Conv2D, MaxPooling2D, TimeDistributed, LSTM
 import numpy as np
 import os
-from tensorflow.keras.models import load_model
+
+# NOTE: Make sure the number in the last layer corresponds to the number of classes.
+# Thus, if there are 5 classes, then it should be model.add(Dense(5,activation="softmax"))
+
 
 frame_rate=16
 num_doppler_bins=16
@@ -44,7 +47,7 @@ model.add(Dropout(0.2))
 model.add(Dense(64,activation="relu"))
 model.add(Dropout(0.2))
 
-model.add(Dense(4,activation="softmax"))
+model.add(Dense(5,activation="softmax"))
 
 opt=tf.keras.optimizers.Adam(lr=1e-3,decay=1e-5)
 model.compile(loss="sparse_categorical_crossentropy",optimizer=opt,metrics=["accuracy"])

@@ -6,23 +6,27 @@ import matplotlib.pylab as plt
 # Raw frames are joined into sequences of 16 frames (about 2 seconds each)
 # The sequences are then saved as samples for training
 
-raw_data_folder=r"C:\chalmers_thesis\data\TurnAround_201953223147"
-destination_data_folder=r"C:\training_data\turn_around"
+raw_data_folder=r"C:\chalmers_thesis\data\NoGesture_201956185055"
+destination_data_folder=r"C:\training_data\no_gesture"
 
 frames=[]
 prefix="\\frame"
 frame_rate=16
 num_doppler_bins=16
 num_range_bins=64
-start_index=50
+start_index=1
 end_index=1250+start_index+frame_rate
 
 
 
 
 for i in range(start_index,end_index):
-    frames.append(np.array(json.load(open(raw_data_folder+prefix+str(i)+".txt")))[:,0:num_range_bins])
+    frames.append(np.nan_to_num(np.array(json.load(open(raw_data_folder+prefix+str(i)+".txt")),dtype="float")[0:frame_rate,18:82]))
     frames[-1]=((frames[-1])/(np.max(frames[-1]))).tolist()
+    print(frames[-1])
+    ax = sns.heatmap(frames[-1])
+    plt.show()
+    break
 
 
 

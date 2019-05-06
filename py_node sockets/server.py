@@ -57,7 +57,7 @@ class Server():
     def launchThreads(self):
         Thread(target = self.startVisualizerServer).start()
         Thread(target = self.startFromJavaGUIServer).start()
-        Thread(target = self.makePrediction).start()
+        #Thread(target = self.makePrediction).start()
         time.sleep(2)
         subprocess.Popen(['java', '-jar', r'C:\chalmers_thesis\JAVA_GUI\dist\JAVA_GUI.jar'])
         subprocess.Popen(r"C:\Users\ruslan\guicomposer\runtime\gcruntime.v7\mmWave_Demo_Visualizer\launcher.exe")
@@ -85,7 +85,7 @@ class Server():
                         file.close()
                         self.frameNum=self.frameNum+1
                     if(self.start_recognition==1):
-                        self.frame_sequence.append(np.array(json.loads(data.decode('utf-8')))[:,0:self.num_range_bins])
+                        self.frame_sequence.append(np.nan_to_num(np.array(json.loads(data.decode('utf-8')),dtype="float")[0:self.frame_rate,18:82]))
                         self.frame_sequence[-1]=(self.frame_sequence[-1]/(np.max(self.frame_sequence[-1]))).tolist()
                     if not data:
                         break

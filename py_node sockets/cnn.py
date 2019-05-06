@@ -38,16 +38,16 @@ model.add(TimeDistributed(Flatten()))
 
 ####################### LSTM LAYER #######################
 
-model.add(LSTM(128,activation="relu",return_sequences="True"))
+model.add(LSTM(64,activation="relu",return_sequences="True"))
 model.add(Dropout(0.2))
 
-model.add(LSTM(128,activation="relu"))
+model.add(LSTM(64,activation="relu"))
 model.add(Dropout(0.2))
 
-model.add(Dense(64,activation="relu"))
+model.add(Dense(32,activation="relu"))
 model.add(Dropout(0.2))
 
-model.add(Dense(5,activation="softmax"))
+model.add(Dense(5,activation="sigmoid"))
 
 opt=tf.keras.optimizers.Adam(lr=1e-3,decay=1e-5)
 model.compile(loss="sparse_categorical_crossentropy",optimizer=opt,metrics=["accuracy"])

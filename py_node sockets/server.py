@@ -57,7 +57,7 @@ class Server():
     def launchThreads(self):
         Thread(target = self.startVisualizerServer).start()
         Thread(target = self.startFromJavaGUIServer).start()
-        #Thread(target = self.makePrediction).start()
+        Thread(target = self.makePrediction).start()
         time.sleep(2)
         subprocess.Popen(['java', '-jar', r'C:\chalmers_thesis\JAVA_GUI\dist\JAVA_GUI.jar'])
         subprocess.Popen(r"C:\Users\ruslan\guicomposer\runtime\gcruntime.v7\mmWave_Demo_Visualizer\launcher.exe")

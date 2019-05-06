@@ -51,7 +51,7 @@ model.add(Dense(5,activation="softmax"))
 
 opt=tf.keras.optimizers.Adam(lr=1e-3,decay=1e-5)
 model.compile(loss="sparse_categorical_crossentropy",optimizer=opt,metrics=["accuracy"])
-model.fit(x,y, validation_split=0.2, epochs=10)
+model.fit(x,y, validation_split=0.2, epochs=20)
 
 
 #model.save('model.h5')  # creates a HDF5 file 'my_model.h5'

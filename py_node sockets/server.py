@@ -75,19 +75,13 @@ class Server():
                 print("Connected By mmWave Visualizer")
                 while True:
                     try:
-                        data1= conn.recv(65536)
-                        data2= conn.recv(65536)
-                        data3= conn.recv(65536)
-                        data1 = data1.decode('utf-8')
-                        data2 = data2.decode('utf-8')
-                        data3 = data3.decode('utf-8')
-                        data = data1 + data2 +data3
+                        data = conn.recv(65536)
                     except:
                         print("Crashed...")
                         break
                     if(self.capture==1):
                         file = open( self.currentDirectory + "\\frame" + str(self.frameNum) + '.txt', 'w' )
-                        file.write(data)
+                        file.write(data.decode('utf-8'))
                         file.close()
                         self.frameNum=self.frameNum+1
                     if(self.start_recognition==1):

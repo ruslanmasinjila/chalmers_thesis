@@ -75,13 +75,19 @@ class Server():
                 print("Connected By mmWave Visualizer")
                 while True:
                     try:
-                        data = conn.recv(65536)
+                        data1= conn.recv(65536)
+                        data2= conn.recv(65536)
+                        data3= conn.recv(65536)
+                        data1 = data1.decode('utf-8')
+                        data2 = data2.decode('utf-8')
+                        data3 = data3.decode('utf-8')
+                        data = data1 + data2 +data3
                     except:
                         print("Crashed...")
                         break
                     if(self.capture==1):
                         file = open( self.currentDirectory + "\\frame" + str(self.frameNum) + '.txt', 'w' )
-                        file.write(data.decode('utf-8'))
+                        file.write(data)
                         file.close()
                         self.frameNum=self.frameNum+1
                     if(self.start_recognition==1):
@@ -155,16 +161,16 @@ class Server():
                     result = model.predict_classes(sequence_to_predict)
                     if(len(result)>0):
                         if(result[0]==0 and self.previous_result!=0):
-                            print("Waving Hand")
-                            self.previous_result=result
+                            print("No Gesture")
                         if(result[0]==1 and self.previous_result!=1):
-                            print("Come Towards Me")
-                            self.previous_result=result
+                            print("Waving Hand")
                         if(result[0]==2 and self.previous_result!=2):
+                            print("Come Towards ME")
+                        if(result[0]==3 and self.previous_result!=3):
                             print("Turn Around")
-                            self.previous_result=result
-                        #if(result[0]==3):
-                        #   print("Stop")
+                        if(result[0]==4 and self.previous_result!=4):
+                            print("Stop")
+                    self.previous_result=result
             if(len(self.frame_sequence)>=100):
                 del self.frame_sequence[0:-self.frame_rate]
 if __name__ == "__main__":

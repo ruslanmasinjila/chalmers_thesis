@@ -159,14 +159,15 @@ class Server():
                         if(result[0]==1 and self.previous_result!=1):
                             print("Waving Hand")
                         if(result[0]==2 and self.previous_result!=2):
-                            print("Come Towards ME")
+                            print("Come Towards Me")
                         if(result[0]==3 and self.previous_result!=3):
                             print("Turn Around")
                         if(result[0]==4 and self.previous_result!=4):
                             print("Stop")
                     self.previous_result=result
-            if(len(self.frame_sequence)>=100):
-                del self.frame_sequence[0:-self.frame_rate]
+                    time.sleep(1)
+            #if(len(self.frame_sequence)>=100):
+            #    del self.frame_sequence[0:-self.frame_rate]
 if __name__ == "__main__":
 
     server = Server()
